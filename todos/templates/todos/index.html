@@ -1,0 +1,28 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+<h2>To-do List</h2>
+
+<a href="{% url 'todos:create' %}" class="btn btn-primary">Add New</a>
+
+<ul>
+    {% for todo in todos %}
+    <li>
+        <h4>{{ todo.title }}</h4>
+        <p>{{ todo.description }}</p>
+        {% if todo.completed %}
+        <p>Completed: Yes</p>
+        {% else %}
+        <p>Completed: No</p>
+        {% endif %}
+        <p>Created At: {{ todo.created_at }}</p>
+        <div class="btn-group" role="group">
+            <a href="{% url 'todos:update' todo.id %}" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'todos:delete' todo.id %}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+    {% empty %}
+    <h3>No todos</h3>
+    {% endfor %}
+</ul>
+{% endblock %}
